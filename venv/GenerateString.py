@@ -1,3 +1,5 @@
+import sys
+
 def generate_string(string_list):
     s = string_list[0]
     for i in range(1, len(string_list)):  # len(string_list)
@@ -16,8 +18,8 @@ def validate(list_1, list_2, string_1, string_2):
     return False
 
 
-def read_input():
-    file = open("input.txt", "r")
+def read_input(filename):
+    file = open(filename, "r")
     lines = file.readlines()
     index_second_string = 0
     for idx, line in enumerate(lines):
@@ -37,6 +39,7 @@ def read_input():
 
 
 if __name__ == "__main__":
-    string1, string2 = read_input()
+    f_name = sys.argv[1]
+    string1, string2 = read_input(f_name)
     print(string1)
     print(string2)
