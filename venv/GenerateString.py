@@ -1,6 +1,6 @@
 def generate_string(string_list):
     s = string_list[0]
-    for i in range(1, len(string_list)):                     #len(string_list)
+    for i in range(1, len(string_list)):  # len(string_list)
         index = int(string_list[i]) + 1
         first_part_string = s[:index]
         second_part_string = s[index:]
@@ -8,21 +8,35 @@ def generate_string(string_list):
     return s
 
 
-if __name__ == "__main__":
+def validate(list_1, list_2, string_1, string_2):
+    j = len(list_1) - 1
+    k = len(list_2) - 1
+    if (2**j * len(list_1[0])) == len(string_1) and (2**k * len(list_2[0])) == len(string_2):
+        return True
+    return False
+
+
+def read_input():
     file = open("input.txt", "r")
     lines = file.readlines()
     index_second_string = 0
-    count = 0
-    for line in lines:
-        lines[count] = line.rstrip()
-        if len(line) > 2:  # the number and newline char
-            index_second_string = count
-        count += 1
+    for idx, line in enumerate(lines):
+        lines[idx] = line.rstrip()
+        if len(lines[idx]) > 1:  # number has length 1, either string has len > 1
+            index_second_string = idx
 
     first_string_list = lines[:index_second_string]
     second_string_list = lines[index_second_string:]
 
     generated_string1 = generate_string(first_string_list)
     generated_string2 = generate_string(second_string_list)
-    print(generated_string1)
-    print(generated_string2)
+    if validate(first_string_list, second_string_list, generated_string1, generated_string2):
+        return generated_string1, generated_string2
+    else:
+        return "ERROR", "ERROR",
+
+
+if __name__ == "__main__":
+    string1, string2 = read_input()
+    print(string1)
+    print(string2)
