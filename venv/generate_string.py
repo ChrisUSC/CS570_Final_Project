@@ -25,7 +25,10 @@ def read_input(filename):
     index_second_string = 0
     for idx, line in enumerate(lines):
         lines[idx] = line.rstrip()
-        if len(lines[idx]) > 1:  # number has length 1, either string has len > 1
+        try:
+            int(lines[idx])  # If line is not a number, raise an exception
+        except ValueError:
+            # Exception caught, so this line is the next string
             index_second_string = idx
 
     first_string_list = lines[:index_second_string]
@@ -36,7 +39,8 @@ def read_input(filename):
     if validate(first_string_list, second_string_list, generated_string1, generated_string2):
         return generated_string1, generated_string2
     else:
-        return "ERROR", "ERROR",
+        # Prevent the program from running further
+        raise RuntimeError('Failed to parse the inputs correctly.')
 
 
 if __name__ == "__main__":
