@@ -1,34 +1,11 @@
 import sys
 import generate_string as gs
-
-
-def calculate_delta(first_letter, second_letter):
-    if first_letter > second_letter:  # reduce number of combinations by 2
-        temp = first_letter
-        first_letter = second_letter
-        second_letter = temp
-    if first_letter == second_letter:
-        return 0
-    if first_letter == "A":
-        if second_letter == "C":
-            return 110
-        if second_letter == "G":
-            return 48
-        if second_letter == "T":
-            return 94
-    if first_letter == "C":
-        if second_letter == "G":
-            return 118
-        if second_letter == "T":
-            return 48
-    if first_letter == "G":
-        if second_letter == "T":
-            return 110
+from alignment_params import calculate_delta, GAP_PENALTY
 
 
 def basic_solution(filename):
     string1, string2 = gs.read_input(filename)
-    gap_penalty = 30
+    gap_penalty = GAP_PENALTY
     cols, rows = (len(string1), len(string2))
     arr = [[0 for i in range(cols)] for j in range(rows)]  # first index moves left/right, second moves up/down
     for i in range(cols):
