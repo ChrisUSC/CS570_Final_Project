@@ -1,27 +1,26 @@
 def calculate_delta(first_letter, second_letter):
-    first_letter = first_letter.lower()
-    second_letter = second_letter.lower()
     if first_letter > second_letter:  # reduce number of combinations by 2
         temp = first_letter
         first_letter = second_letter
         second_letter = temp
     if first_letter == second_letter:
         return 0
-    if first_letter == "a":
-        if second_letter == "c":
+    if first_letter == "A":
+        if second_letter == "C":
             return 110
-        if second_letter == "g":
+        if second_letter == "G":
             return 48
-        if second_letter == "t":
+        if second_letter == "T":
             return 94
-    if first_letter == "c":
-        if second_letter == "g":
+    if first_letter == "C":
+        if second_letter == "G":
             return 118
-        if second_letter == "t":
+        if second_letter == "T":
             return 48
-    if first_letter == "g":
-        if second_letter == "t":
+    if first_letter == "G":
+        if second_letter == "T":
             return 110
+
 
 
 def efficient_solution():
