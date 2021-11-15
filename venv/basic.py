@@ -1,10 +1,7 @@
-import sys
-import generate_string as gs
 from alignment_params import calculate_delta, GAP_PENALTY
 
 
-def basic_solution(filename):
-    string1, string2 = gs.read_input(filename)
+def basic_solution(string1, string2):
     gap_penalty = GAP_PENALTY
     cols, rows = (len(string1), len(string2))
     arr = [[0 for i in range(cols)] for j in range(rows)]  # first index moves left/right, second moves up/down
@@ -49,8 +46,9 @@ def basic_solution(filename):
     print(alignment1)
     print(string2)
     print(alignment2)
+    return alignment1, alignment2
 
 
 if __name__ == "__main__":
-    f_name = sys.argv[1]
-    basic_solution(f_name)
+    import generate_result as gr
+    gr.parse_cli_and_run(basic_solution)

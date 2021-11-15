@@ -1,20 +1,19 @@
 import platform
 import gc
-from sys import argv
 import timeit
 
 PLATFORM_OS = platform.system()
 
-if PLATFORM_OS == 'Windows':
+if PLATFORM_OS == "Windows":
     import psutil
 else:
     import resource
 
 
 def get_memory_usage():
-    if PLATFORM_OS == 'Windows':
+    if PLATFORM_OS == "Windows":
         return psutil.Process().memory_full_info().peak_wset / 1024
-    elif PLATFORM_OS == 'Linux':
+    elif PLATFORM_OS == "Linux":
         return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     else:
         return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
@@ -25,16 +24,16 @@ def run_with_profiler(func, *args, **kwargs):
 
     def wrapper():
         start_mem = get_memory_usage()
-        response['output'] = func(*args, **kwargs)
+        response["output"] = func(*args, **kwargs)
         end_mem = get_memory_usage()
-        response['memory'] = end_mem - start_mem
+        response["memory"] = end_mem - start_mem
 
     timer = timeit.Timer(stmt=wrapper, setup=lambda: gc.collect())
-    response['time'] = timer.timeit(number=1)
+    response["time"] = timer.timeit(number=1)
     return response
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
 
     def test_func(rows, cols):
