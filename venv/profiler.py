@@ -11,12 +11,14 @@ else:
 
 
 def get_memory_usage():
+    # NOTE: We are checking max memory allocated in RAM. However, on RAM limited machines the process may use virtual memory which will not be accounted.
+    #       Let's go with this for now, and based on the sample set we can modify.
     if PLATFORM_OS == "Windows":
         return psutil.Process().memory_full_info().peak_wset / 1024
     elif PLATFORM_OS == "Linux":
         return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     else:
-        return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
+        return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024  # MacOS returns resource value in bytes
 
 
 def run_with_profiler(func, *args, **kwargs):
