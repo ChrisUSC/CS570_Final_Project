@@ -1,10 +1,10 @@
-from alignment_params import calculate_delta, GAP_PENALTY
+from alignment_params import calculate_alpha, GAP_PENALTY
 
 
 def basic_solution(string1, string2):
     gap_penalty = GAP_PENALTY
     cols, rows = (len(string1), len(string2))
-    arr = [[0 for i in range(cols)] for j in range(rows)]  # first index moves left/right, second moves up/down
+    arr = [[0 for _ in range(cols)] for _ in range(rows)]  # first index moves left/right, second moves up/down
     for i in range(cols):
         arr[i][0] = i * gap_penalty
     for j in range(rows):
@@ -12,7 +12,7 @@ def basic_solution(string1, string2):
     for j in range(1, cols):
         for i in range(1, rows):
             arr[i][j] = min(
-                arr[i - 1][j - 1] + calculate_delta(string1[i], string2[j]),
+                arr[i - 1][j - 1] + calculate_alpha(string1[i], string2[j]),
                 arr[i - 1][j] + gap_penalty,
                 arr[i][j - 1] + gap_penalty
             )
@@ -27,7 +27,7 @@ def basic_solution(string1, string2):
     while i > 0 and j > 0:
         val = arr[i][j]
         print(val)
-        if val == arr[i - 1][j - 1] + calculate_delta(string1[i], string2[j]):
+        if val == arr[i - 1][j - 1] + calculate_alpha(string1[i], string2[j]):
             i -= 1
             j -= 1
             alignment1 += string1[i]
