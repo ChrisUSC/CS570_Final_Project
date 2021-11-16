@@ -1,4 +1,4 @@
-from alignment_params import calculate_delta, GAP_PENALTY
+from alignment_params import calculate_alpha, GAP_PENALTY
 
 
 def efficient_solution(string1, string2):

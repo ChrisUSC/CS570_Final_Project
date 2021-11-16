@@ -1,7 +1,7 @@
 GAP_PENALTY = 30
 
 
-def calculate_delta(first_letter, second_letter):
+def calculate_alpha(first_letter, second_letter):
     if first_letter > second_letter:  # reduce number of combinations by 2
         temp = first_letter
         first_letter = second_letter
