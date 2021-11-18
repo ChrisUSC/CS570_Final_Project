@@ -93,6 +93,7 @@ def find_alignment_scores(string1, string2):
 def efficient_solution(string1, string2):
     m = len(string1)
     n = len(string2)
+    print(f'Recursing with: "{string1}", "{string2}"')
 
     # Base case
     if m <= 2 or n <= 2:
