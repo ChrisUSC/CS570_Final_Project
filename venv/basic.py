@@ -3,7 +3,7 @@ from alignment_params import calculate_alpha, GAP_PENALTY
 
 def basic_solution(string1, string2):
     gap_penalty = GAP_PENALTY
-    cols, rows = (len(string1), len(string2))
+    cols, rows = (len(string1) + 1, len(string2) + 1)
     arr = [[0 for _ in range(cols)] for _ in range(rows)]  # first index moves left/right, second moves up/down
     for i in range(cols):
         arr[i][0] = i * gap_penalty
@@ -12,31 +12,30 @@ def basic_solution(string1, string2):
     for j in range(1, cols):
         for i in range(1, rows):
             arr[i][j] = min(
-                arr[i - 1][j - 1] + calculate_alpha(string1[i], string2[j]),
+                arr[i - 1][j - 1] + calculate_alpha(string1[i - 1], string2[j - 1]),
                 arr[i - 1][j] + gap_penalty,
                 arr[i][j - 1] + gap_penalty
             )
-    i = cols-1
-    j = rows-1
-
+    i = cols - 1
+    j = rows - 1
+    '''
     for row in arr:
         print(row)
-
+    '''
     alignment1 = ""
     alignment2 = ""
     while i > 0 and j > 0:
         val = arr[i][j]
-        print(val)
-        if val == arr[i - 1][j - 1] + calculate_alpha(string1[i], string2[j]):
+        if val == arr[i - 1][j - 1] + calculate_alpha(string1[i-1], string2[j-1]):
             i -= 1
             j -= 1
             alignment1 += string1[i]
             alignment2 += string2[j]
-        if val == arr[i - 1][j] + gap_penalty:
+        elif val == arr[i - 1][j] + gap_penalty:
             i -= 1
             alignment1 += string1[i]
             alignment2 += "_"
-        if val == arr[i][j - 1] + gap_penalty:
+        elif val == arr[i][j - 1] + gap_penalty:
             j -= 1
             alignment1 += "_"
             alignment2 += string1[i]
@@ -46,6 +45,7 @@ def basic_solution(string1, string2):
     print(alignment1)
     print(string2)
     print(alignment2)
+
     return alignment1, alignment2
 
 
