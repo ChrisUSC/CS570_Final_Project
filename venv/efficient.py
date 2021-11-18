@@ -85,7 +85,7 @@ Divide-and-conquer-alignment(X,Y):
 def find_alignment_scores(string1, string2):
     # Return the last column with scores
     # That is nothing but the scores for all of string1, against each substring of string2
-    # The returned array should have size len(string2) x 1
+    # The returned array should have size (len(string2) + 1)
     gap_penalty = GAP_PENALTY
     pass
 
@@ -110,7 +110,7 @@ def efficient_solution(string1, string2):
     # Find the divide point in string2
     split = 0
     min_score = scores_left[0] + scores_right[0]
-    for i in range(1, len(string2)):
+    for i in range(1, len(string2) + 1):
         score = scores_left[i] + scores_right[i]
         if score < min_score:
             min_score = score
