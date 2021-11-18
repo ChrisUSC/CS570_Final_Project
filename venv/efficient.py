@@ -96,8 +96,10 @@ def efficient_solution(string1, string2):
     print(f'Recursing with: "{string1}", "{string2}"')
 
     # Base case
+    if n == 0:
+        # NOTE: m cannot never be 0, since we always split by 2 and stop splitting m <= 2
+        return string1, "_" * m
     if m <= 2 or n <= 2:
-        # TODO: Is it possible that either m or n become 0?
         return basic_solution(string1, string2)
 
     # Find the scores for left half and right half
