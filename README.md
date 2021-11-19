@@ -9,7 +9,7 @@
 
 ### Final Project
 
-`basic.py` and `effecient.py` are the main programs. They can either be run in debug mode which prints console outputs, or in normal mode where the `output.txt` file is generated.  
+`basic.py` and `efficient.py` are the main programs. They can either be run in debug mode which prints console outputs, or in normal mode where the `output.txt` file is generated.  
 
 For their exact command line usage, you can run:
 ```
