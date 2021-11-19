@@ -1,4 +1,4 @@
-from alignment_params import calculate_alpha, GAP_PENALTY
+from alignment_params import *
 from basic import basic_solution
 
 '''
@@ -115,7 +115,7 @@ def find_alignment_scores(string1, string2):
     return last_col
 
 
-def efficient_solution(string1, string2):
+def _align_recurse(string1, string2):
     m = len(string1)
     n = len(string2)
     print(f'Recursing with: "{string1}", "{string2}"')
@@ -142,9 +142,16 @@ def efficient_solution(string1, string2):
             split = i
 
     # Solve sub-problems and combine the solution
-    align1_left, align2_left = efficient_solution(string1[:mid], string2[:split])
-    align1_right, align2_right = efficient_solution(string1[mid:], string2[split:])
+    align1_left, align2_left = _align_recurse(string1[:mid], string2[:split])
+    align1_right, align2_right = _align_recurse(string1[mid:], string2[split:])
     return align1_left + align1_right, align2_left + align2_right
+
+
+def efficient_solution(string1, string2):
+    alignment1, alignment2 = _align_recurse(string1, string2)
+    if not is_valid_alignment(string1, string2, alignment1, alignment2):
+        raise RuntimeError('Alignment does not match with input letters!')
+    return alignment1, alignment2
 
 
 if __name__ == "__main__":

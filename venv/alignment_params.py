@@ -23,3 +23,10 @@ def calculate_alpha(first_letter, second_letter):
     if first_letter == "G":
         if second_letter == "T":
             return 110
+
+
+def is_valid_alignment(string1, string2, alignment1, alignment2):
+    return (
+        string1 == alignment1.replace("_", "") and
+        string2 == alignment2.replace("_", "")
+    )

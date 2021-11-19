@@ -1,4 +1,4 @@
-from alignment_params import calculate_alpha, GAP_PENALTY
+from alignment_params import *
 
 
 def basic_solution(string1, string2):
@@ -53,6 +53,8 @@ def basic_solution(string1, string2):
     print(string2)
     print(alignment2)
 
+    if not is_valid_alignment(string1, string2, alignment1, alignment2):
+        raise RuntimeError('Alignment does not match with input letters!')
     return alignment1, alignment2
 
 
