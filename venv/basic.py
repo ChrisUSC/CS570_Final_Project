@@ -22,15 +22,18 @@ def basic_solution(string1, string2):
                 arr[i - 1][j] + gap_penalty,
                 arr[i][j - 1] + gap_penalty
             )
-    i = rows - 1
-    j = cols - 1
+
     '''
     for row in arr:
         print(row)
     '''
+
+    i = rows - 1
+    j = cols - 1
     alignment1 = ""
     alignment2 = ""
-    while i > 0 or j > 0:
+    while i > 0 and j > 0:
+        # Traceback until we reach a base case
         val = arr[i][j]
         if val == arr[i - 1][j - 1] + calculate_alpha(string1[i-1], string2[j-1]):
             alignment1 += string1[i - 1]
@@ -45,6 +48,15 @@ def basic_solution(string1, string2):
             alignment1 += "_"
             alignment2 += string2[j - 1]
             j -= 1
+
+    if i == 0 and j != 0:
+        # Rest of string2 is matched to gap
+        alignment1 += '_' * j
+        alignment2 += string2[j-1::-1]
+    if i != 0 and j == 0:
+        # Rest of string1 is matched to gap
+        alignment1 += string1[i-1::-1]
+        alignment2 += '_' * i
 
     alignment1 = alignment1[::-1]
     alignment2 = alignment2[::-1]
