@@ -23,3 +23,24 @@ def calculate_alpha(first_letter, second_letter):
     if first_letter == "G":
         if second_letter == "T":
             return 110
+
+
+def is_valid_alignment(string1, string2, alignment1, alignment2):
+    return (
+        string1 == alignment1.replace("_", "") and
+        string2 == alignment2.replace("_", "")
+    )
+
+
+def compute_score(alignment1, alignment2):
+    if len(alignment1) != len(alignment2):
+        raise ValueError('Alignment lengths do not match!')
+
+    score = 0
+    for i in range(len(alignment1)):
+        if (alignment1[i] == '_') ^ (alignment2[i] == '_'):
+            score += GAP_PENALTY
+        else:
+            score += calculate_alpha(alignment1[i], alignment2[i])
+
+    return score

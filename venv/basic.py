@@ -1,51 +1,72 @@
-from alignment_params import calculate_alpha, GAP_PENALTY
+from alignment_params import *
 
 
 def basic_solution(string1, string2):
+    """
+    :param string1:
+    :param string2:
+    :return:
+    """
     gap_penalty = GAP_PENALTY
-    cols, rows = (len(string1), len(string2))
-    arr = [[0 for i in range(cols)] for j in range(rows)]  # first index moves left/right, second moves up/down
-    for i in range(cols):
+    rows, cols = (len(string1) + 1, len(string2) + 1)
+    arr = [[0 for _ in range(cols)] for _ in range(rows)]  # first index moves left/right, second moves up/down
+    for i in range(len(arr)):
         arr[i][0] = i * gap_penalty
-    for j in range(rows):
-        arr[0][j] = j * gap_penalty
-    for j in range(1, cols):
-        for i in range(1, rows):
+    for i in range(len(arr[0])):
+        arr[0][i] = i * gap_penalty
+
+    for i in range(1, len(string1) + 1):
+        for j in range(1, len(string2) + 1):
             arr[i][j] = min(
-                arr[i - 1][j - 1] + calculate_alpha(string1[i], string2[j]),
+                arr[i - 1][j - 1] + calculate_alpha(string1[i - 1], string2[j - 1]),
                 arr[i - 1][j] + gap_penalty,
                 arr[i][j - 1] + gap_penalty
             )
-    i = cols-1
-    j = rows-1
 
+    '''
     for row in arr:
         print(row)
+    '''
 
+    i = rows - 1
+    j = cols - 1
     alignment1 = ""
     alignment2 = ""
     while i > 0 and j > 0:
+        # Traceback until we reach a base case
         val = arr[i][j]
-        print(val)
-        if val == arr[i - 1][j - 1] + calculate_alpha(string1[i], string2[j]):
+        if val == arr[i - 1][j - 1] + calculate_alpha(string1[i-1], string2[j-1]):
+            alignment1 += string1[i - 1]
+            alignment2 += string2[j - 1]
             i -= 1
             j -= 1
-            alignment1 += string1[i]
-            alignment2 += string2[j]
-        if val == arr[i - 1][j] + gap_penalty:
-            i -= 1
-            alignment1 += string1[i]
+        elif val == arr[i - 1][j] + gap_penalty:
+            alignment1 += string1[i - 1]
             alignment2 += "_"
-        if val == arr[i][j - 1] + gap_penalty:
-            j -= 1
+            i -= 1
+        elif val == arr[i][j - 1] + gap_penalty:
             alignment1 += "_"
-            alignment2 += string1[i]
+            alignment2 += string2[j - 1]
+            j -= 1
+
+    if i == 0 and j != 0:
+        # Rest of string2 is matched to gap
+        alignment1 += '_' * j
+        alignment2 += string2[j-1::-1]
+    if i != 0 and j == 0:
+        # Rest of string1 is matched to gap
+        alignment1 += string1[i-1::-1]
+        alignment2 += '_' * i
+
     alignment1 = alignment1[::-1]
     alignment2 = alignment2[::-1]
     print(string1)
     print(alignment1)
     print(string2)
     print(alignment2)
+
+    if not is_valid_alignment(string1, string2, alignment1, alignment2):
+        raise RuntimeError('Alignment does not match with input letters!')
     return alignment1, alignment2
 
 
