@@ -8,11 +8,11 @@ def basic_solution(string1, string2):
     :return:
     """
     gap_penalty = GAP_PENALTY
-    cols, rows = (len(string1) + 1, len(string2) + 1)
+    rows, cols = (len(string1) + 1, len(string2) + 1)
     arr = [[0 for _ in range(cols)] for _ in range(rows)]  # first index moves left/right, second moves up/down
-    for i in range(rows):
+    for i in range(len(arr)):
         arr[i][0] = i * gap_penalty
-    for i in range(cols):
+    for i in range(len(arr[0])):
         arr[0][i] = i * gap_penalty
 
     for i in range(1, len(string1) + 1):
