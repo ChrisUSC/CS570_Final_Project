@@ -49,19 +49,24 @@ def compare_expected(output_filename, expected_filename):
 def parse_cli_and_run(algo_func):
     parser = argparse.ArgumentParser()
     parser.add_argument("input_file", help="file containing input strings")
-    parser.add_argument("--debug", action="store_true", help="enable prints in console and disable profiling")
+    parser.add_argument("--verbose", "-v", action="store_true", help="enable prints in console")
+    parser.add_argument("--diff", "-d", action="store_true", help="compare output with expected result")
     args = parser.parse_args()
 
     string1, string2 = gs.read_input(args.input_file)
-    if args.debug:
-        alignment1, alignment2 = algo_func(string1, string2)
+    output_filename = get_output_filename(args.input_file)
+    if args.verbose:
+        response = {
+            "output": algo_func(string1, string2),
+            "time": 0,
+            "memory": 0
+        }
     else:
-        output_filename = get_output_filename(args.input_file)
+        # Disable any print statements as it will slow down execution
         with contextlib.redirect_stdout(None):
-            # Disable any print statements as it will slow down execution
             response = profiler.run_with_profiler(algo_func, string1, string2)
-            write_output(output_filename, response)
+    write_output(output_filename, response)
+    if args.diff:
         expected_filename = get_output_filename(args.input_file, replace_with="expected")
-        if os.path.isfile(expected_filename):
-            is_match = compare_expected(output_filename, expected_filename)
-            print(f'Our output and expected output have {"same" if is_match else "different"} score!')
+        is_match = compare_expected(output_filename, expected_filename)
+        print(f'Our output and expected output have {"same" if is_match else "different"} score!')
