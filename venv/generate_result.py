@@ -22,8 +22,9 @@ def write_output(output_filename, response):
         file.writelines([
             f'{alignment1[:50]} {alignment2[:50]}\n',  # Prints the entire alignment if it is less than 50 characters
             f'{alignment1[-50:]} {alignment2[-50:]}\n',
-            f'{round(response["time"] * 1000, 3)}ms\n',
-            f'{response["memory"]}kB\n',
+            f'{compute_score(alignment1, alignment2)}\n',
+            f'{round(response["time"], 3)}\n',  # In seconds
+            f'{response["memory"]}',  # In kB
         ])
 
 
@@ -36,11 +37,11 @@ def read_output(output_filename):
 
 
 def compare_expected(output_filename, expected_filename):
-    al1_part1, al2_part1, al1_part2, al2_part2 = read_output(output_filename)
-    op_score = compute_score(al1_part1 + al1_part2, al2_part1 + al2_part2)
+    with open(output_filename, "r") as file:
+        op_score = float(file.readlines()[2].strip())
 
-    al1_part1, al2_part1, al1_part2, al2_part2 = read_output(expected_filename)
-    exp_score = compute_score(al1_part1 + al1_part2, al2_part1 + al2_part2)
+    with open(expected_filename, "r") as file:
+        exp_score = float(file.readlines()[2].strip())
 
     print(f'Our score: {op_score}\nExpected score: {exp_score}')
     return op_score == exp_score
