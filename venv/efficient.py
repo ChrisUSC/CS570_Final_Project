@@ -92,27 +92,24 @@ def find_alignment_scores(string1, string2):
     # That is nothing but the scores for all of string1, against each substring of string2
     # The returned array should have size (len(string2) + 1)
     gap_penalty = GAP_PENALTY
-    cols, rows = (len(string1) + 1, len(string2) + 1)
-    arr = [[0 for _ in range(cols)] for _ in range(rows)]  # first index moves left/right, second moves up/down
+    rows, cols = (len(string1) + 1, len(string2) + 1)
+    prev_col = [0 for _ in range(cols)]
+    cur_col = [0 for _ in range(cols)]
 
-    for i in range(rows):
-        arr[i][0] = i * gap_penalty
-    for i in range(cols):
-        arr[0][i] = i * gap_penalty
-    for i in range(1, len(string2) + 1):
-        for j in range(1, len(string1) + 1):
-            arr[i][j] = min(
-                arr[i - 1][j - 1] + calculate_alpha(string1[j - 1], string2[i - 1]),
-                arr[i - 1][j] + gap_penalty,
-                arr[i][j - 1] + gap_penalty
+    for j in range(cols):
+        prev_col[j] = j * gap_penalty
+
+    for i in range(1, len(string1) + 1):
+        cur_col[0] = i * gap_penalty
+        for j in range(1, len(string2) + 1):
+            cur_col[j] = min(
+                prev_col[j - 1] + calculate_alpha(string1[i - 1], string2[j - 1]),
+                prev_col[j] + gap_penalty,
+                cur_col[j - 1] + gap_penalty
             )
+        prev_col, cur_col = cur_col, prev_col
 
-    last_col = [0 for _ in range(len(string2) + 1)]
-
-    for row in range(len(arr)):
-        last_col[row] = arr[row][cols-1]
-
-    return last_col
+    return prev_col
 
 
 def _align_recurse(string1, string2):
