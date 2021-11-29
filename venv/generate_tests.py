@@ -5,7 +5,7 @@ def generate_tests(num):
     choices = ['A', 'C', 'G', 'T']
     for i in range(num):
         s = ""
-        f = open("tests/input" + str(i) + ".txt", "w")
+        f = open("tests/generated/input" + str(i) + ".txt", "w")
         for j in range(4):
             s += choices[random.randrange(4)]
         s += '\n'
