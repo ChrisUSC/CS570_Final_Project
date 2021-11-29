@@ -131,6 +131,7 @@ def _align_recurse(string1, string2):
     mid = m // 2
     scores_left = find_alignment_scores(string1[:mid], string2)
     scores_right = find_alignment_scores(string1[-1:mid-1:-1], string2[-1::-1])
+    scores_right = scores_right[::-1]
 
     # Find the divide point in string2
     split = 0
