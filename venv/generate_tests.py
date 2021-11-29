@@ -4,20 +4,19 @@ import random
 def generate_tests(num):
     choices = ['A', 'C', 'G', 'T']
     for i in range(num):
-        f = open("tests/test" + str(i) + ".txt", "w")
         s = ""
+        f = open("tests/input" + str(i) + ".txt", "w")
         for j in range(4):
             s += choices[random.randrange(4)]
         s += '\n'
-        num_lines = random.randrange(8)
+        num_lines = random.randint(3, 9)
         for j in range(num_lines):
             max_num = 2**j
             s += str(random.randrange(max_num)) + '\n'
-    for i in range(num):
         for j in range(4):
             s += choices[random.randrange(4)]
         s += '\n'
-        num_lines = random.randrange(8)
+        num_lines = random.randint(3, 9)
         for j in range(num_lines):
             max_num = 2**j
             s += str(random.randrange(max_num)) + '\n'
