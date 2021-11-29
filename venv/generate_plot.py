@@ -42,6 +42,12 @@ def collect_stats(input_files, repeat=5):
     return pd.DataFrame(records)
 
 
+def find_mismatch(records):
+    records = records.groupby(["inputSize", "algorithm"], as_index=False).agg({"score": "min"})
+    scores = records.pivot(index="inputSize", columns="algorithm", values="score")
+    return scores[scores[basic_solution.__name__] != scores[efficient_solution.__name__]]
+
+
 def plot_perf(records, output_dir):
     records = records.groupby(["inputSize", "algorithm"], as_index=False).agg({"timeSec": "mean", "memoryKB": "mean"})
 
@@ -70,5 +76,10 @@ if __name__ == "__main__":
 
     input_files = find_input_files(args.input_dir)
     records = collect_stats(input_files, args.repeat)
+    score_diffs = find_mismatch(records)
+    if not score_diffs.empty:
+        print('Both solutions gave different scores!')
+        print(score_diffs)
+        exit(1)
     plot_perf(records, args.input_dir)
     print(f'Figures saved in: {args.input_dir}')
