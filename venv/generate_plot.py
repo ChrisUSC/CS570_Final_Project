@@ -55,12 +55,14 @@ def plot_perf(records, output_dir):
     time.columns.name = None
     fig = time.plot()
     fig.set_ylabel("timeSec")
+    time.to_csv(os.path.join(output_dir, "time_perf.csv"))
     plt.savefig(os.path.join(output_dir, "time_perf"))
 
     memory = records.pivot(index="inputSize", columns="algorithm", values="memoryKB")
     memory.columns.name = None
     fig = memory.plot()
     fig.set_ylabel("memoryKB")
+    memory.to_csv(os.path.join(output_dir, "memory_perf.csv"))
     plt.savefig(os.path.join(output_dir, "memory_perf"))
 
 
