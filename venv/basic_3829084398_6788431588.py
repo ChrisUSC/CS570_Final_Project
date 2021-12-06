@@ -1,4 +1,4 @@
-from alignment_params import *
+from alignment_params_3829084398_6788431588 import *
 
 
 def basic_solution(string1, string2):
@@ -71,5 +71,5 @@ def basic_solution(string1, string2):
 
 
 if __name__ == "__main__":
-    import generate_result as gr
+    import generate_result_3829084398_6788431588 as gr
     gr.parse_cli_and_run(basic_solution)

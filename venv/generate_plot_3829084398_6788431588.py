@@ -5,14 +5,16 @@ import subprocess
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import generate_string as gs
-import generate_result as gr
-from basic import basic_solution
-from efficient import efficient_solution
+import generate_string_3829084398_6788431588 as gs
+import generate_result_3829084398_6788431588 as gr
+from basic_3829084398_6788431588 import basic_solution
+from efficient_3829084398_6788431588 import efficient_solution
 
 
 def find_input_files(folder):
-    return glob.glob(os.path.join(folder, "*input*.txt"))
+    x = glob.glob(os.path.join(folder, "*input*.txt"))
+    print(x)
+    return x
 
 
 def collect_stats(input_files, repeat=5):
@@ -75,7 +77,9 @@ if __name__ == "__main__":
         raise ValueError("Please enter a positive repeat count.")
 
     input_files = find_input_files(args.input_dir)
+    print(input_files)
     records = collect_stats(input_files, args.repeat)
+    print(records)
     score_diffs = find_mismatch(records)
     if not score_diffs.empty:
         print('Both solutions gave different scores!')

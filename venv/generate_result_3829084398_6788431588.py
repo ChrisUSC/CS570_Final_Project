@@ -1,9 +1,9 @@
 import os
 import argparse
 import contextlib
-import generate_string as gs
-import profiler
-from alignment_params import compute_score
+import generate_string_3829084398_6788431588 as gs
+import profiler_3829084398_6788431588 as profiler
+from alignment_params_3829084398_6788431588 import compute_score
 
 
 def get_output_filename(input_filename, replace_with="output"):
