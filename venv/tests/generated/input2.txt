@@ -1,11 +1,6 @@
-GATA
+AAGC
 0
 1
-2
-2
-14
-26
-ATGC
-0
+GATC
 0
 1

@@ -9,14 +9,13 @@ def generate_tests(num):
         for j in range(4):
             s += choices[random.randrange(4)]
         s += '\n'
-        num_lines = random.randint(3, 9)
+        num_lines = i % 11
         for j in range(num_lines):
             max_num = 2**j
             s += str(random.randrange(max_num)) + '\n'
         for j in range(4):
             s += choices[random.randrange(4)]
         s += '\n'
-        num_lines = random.randint(3, 9)
         for j in range(num_lines):
             max_num = 2**j
             s += str(random.randrange(max_num)) + '\n'
