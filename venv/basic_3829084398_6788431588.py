@@ -60,10 +60,9 @@ def basic_solution(string1, string2):
 
     alignment1 = alignment1[::-1]
     alignment2 = alignment2[::-1]
-    print(string1)
-    print(alignment1)
-    print(string2)
-    print(alignment2)
+
+    if matching_underscores(alignment1, alignment2):
+        raise RuntimeError('Alignment matches _ with another _')
 
     if not is_valid_alignment(string1, string2, alignment1, alignment2):
         raise RuntimeError('Alignment does not match with input letters!')

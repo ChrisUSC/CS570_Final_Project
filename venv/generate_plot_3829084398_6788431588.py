@@ -31,7 +31,7 @@ def collect_stats(input_files, repeat=5):
                     lines = file.readlines()
                     records.append({
                         "inputFile": input_file,
-                        "inputSize": len(string1) * len(string2),
+                        "inputSize": len(string1) + len(string2),           # Piazza says size is m + n from TA
                         "iteration": iteration,
                         "algorithm": algo_func.__name__,
                         "score": float(lines[2].strip()),

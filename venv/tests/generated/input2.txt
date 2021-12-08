@@ -1,6 +1,4 @@
-AAGC
+CACG
 0
-1
-GATC
+CTCG
 0
-1

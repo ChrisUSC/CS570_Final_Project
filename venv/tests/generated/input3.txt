@@ -1,8 +1,5 @@
-GAAG
+CCGC
+0
+TTAT
 0
 0
-0
-TCAG
-0
-0
-2

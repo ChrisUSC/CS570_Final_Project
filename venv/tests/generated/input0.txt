@@ -1,2 +1,2 @@
-GTTA
-ATAC
+CTCG
+AGAA

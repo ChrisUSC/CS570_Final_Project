@@ -1,4 +1,3 @@
-AAGA
-0
-TGGC
+AAGG
+TGTG
 0
