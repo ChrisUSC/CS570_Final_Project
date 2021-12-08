@@ -53,17 +53,28 @@ def plot_perf(records, output_dir):
 
     time = records.pivot(index="inputSize", columns="algorithm", values="timeSec")
     time.columns.name = None
-    fig = time.plot()
-    fig.set_ylabel("timeSec")
     time.to_csv(os.path.join(output_dir, "time_perf.csv"))
-    plt.savefig(os.path.join(output_dir, "time_perf"))
+    fig, axes = plt.subplots(nrows=1, ncols=1)
+    fig.set_size_inches(7, 7)
+    time.plot(ax=axes)
+    axes.set_ylabel("timeSec")
+    axes.set_title("Runtime Profile")
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "time_perf"), dpi=150)
 
     memory = records.pivot(index="inputSize", columns="algorithm", values="memoryKB")
     memory.columns.name = None
-    fig = memory.plot()
-    fig.set_ylabel("memoryKB")
     memory.to_csv(os.path.join(output_dir, "memory_perf.csv"))
-    plt.savefig(os.path.join(output_dir, "memory_perf"))
+    fig, axes = plt.subplots(nrows=1, ncols=2)
+    fig.set_size_inches(15, 7)
+    memory.plot(ax=axes[0])
+    axes[0].set_ylabel("memoryKB")
+    axes[0].set_title("Memory Profile")
+    memory.plot(ax=axes[1], logy=True)
+    axes[1].set_ylabel("memoryKB")
+    axes[1].set_title("Memory Profile (Log-scaled)")
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "memory_perf"), dpi=150)
 
 
 if __name__ == "__main__":
