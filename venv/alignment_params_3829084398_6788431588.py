@@ -27,9 +27,18 @@ def calculate_alpha(first_letter, second_letter):
 
 def is_valid_alignment(string1, string2, alignment1, alignment2):
     return (
-        string1 == alignment1.replace("_", "") and
-        string2 == alignment2.replace("_", "")
+            string1 == alignment1.replace("_", "") and
+            string2 == alignment2.replace("_", "")
     )
+
+
+def matching_underscores(alignment1, alignment2):
+    for i in range(len(max(alignment1, alignment2))):
+        if alignment1[i] == '_' and alignment2[i] == '_':
+            print("_ aligned with _")
+            return True
+    print("good alignment")
+    return False
 
 
 def compute_score(alignment1, alignment2):

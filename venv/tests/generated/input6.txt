@@ -1,8 +1,8 @@
-ACGG
+ACTA
 0
-1
-2
-CGGT
+0
+0
+AGCT
 0
 0
 2

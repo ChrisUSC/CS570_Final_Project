@@ -1,5 +1,5 @@
-from alignment_params import *
-from basic import basic_solution
+from alignment_params_3829084398_6788431588 import *
+from basic_3829084398_6788431588 import basic_solution
 
 def find_alignment_scores(string1, string2):
     '''
@@ -72,5 +72,5 @@ def efficient_solution(string1, string2):
 
 
 if __name__ == "__main__":
-    import generate_result as gr
+    import generate_result_3829084398_6788431588 as gr
     gr.parse_cli_and_run(efficient_solution)

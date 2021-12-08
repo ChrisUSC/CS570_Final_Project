@@ -1,4 +1,3 @@
-CACG
-0
 CTCG
+GATG
 0

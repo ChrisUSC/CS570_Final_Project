@@ -5,10 +5,10 @@ import subprocess
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import generate_string as gs
-import generate_result as gr
-from basic import basic_solution
-from efficient import efficient_solution
+import generate_string_3829084398_6788431588 as gs
+import generate_result_3829084398_6788431588 as gr
+from basic_3829084398_6788431588 import basic_solution
+from efficient_3829084398_6788431588 import efficient_solution
 
 
 def find_input_files(folder):
@@ -31,7 +31,7 @@ def collect_stats(input_files, repeat=5):
                     lines = file.readlines()
                     records.append({
                         "inputFile": input_file,
-                        "inputSize": len(string1) * len(string2),
+                        "inputSize": len(string1) + len(string2),           # Piazza says size is m + n from TA
                         "iteration": iteration,
                         "algorithm": algo_func.__name__,
                         "score": float(lines[2].strip()),
@@ -77,6 +77,7 @@ if __name__ == "__main__":
         raise ValueError("Please enter a positive repeat count.")
 
     input_files = find_input_files(args.input_dir)
+
     records = collect_stats(input_files, args.repeat)
     score_diffs = find_mismatch(records)
     if not score_diffs.empty:
@@ -84,4 +85,5 @@ if __name__ == "__main__":
         print(score_diffs)
         exit(1)
     plot_perf(records, args.input_dir)
+    records.to_csv("output.csv")
     print(f'Figures saved in: {args.input_dir}')
