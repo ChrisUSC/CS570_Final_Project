@@ -20,8 +20,8 @@ def write_output(output_filename, response):
     with open(output_filename, "w") as file:
         alignment1, alignment2 = response["output"]
         file.writelines([
-            f'{alignment1[:50]} {alignment2[:50]}\n',  # Prints the entire alignment if it is less than 50 characters
-            f'{alignment1[-50:]} {alignment2[-50:]}\n',
+            f'{alignment1[:50]} {alignment1[-50:]}\n',  # Prints the entire alignment if it is less than 50 characters
+            f'{alignment2[:50]} {alignment2[-50:]}\n',
             f'{compute_score(alignment1, alignment2)}\n',
             f'{round(response["time"], 3)}\n',  # In seconds
             f'{response["memory"]}',  # In kB
